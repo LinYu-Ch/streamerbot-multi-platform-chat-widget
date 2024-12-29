@@ -37,10 +37,35 @@
 	box-sizing: border-box;
 }
 
+/* This is just for platform identification, it is not included in SE by default */
+.chat__platform-identifier {
+	font-size: var(--fs-chat--username);
+	font-weight: 900;
+	color: white;
+
+	line-height: var(--lh-chat--username);
+    margin: 0;
+
+
+	border-radius: 2px;
+
+	position: absolute;
+	top: -0.5px;
+}
+.chat__platform-identifier.chat__platform-identifier[data-platform="TTV"]{
+	background-color: #8956FB;
+	border: 2px solid #8956FB;
+	left: -1.6rem;
+}
+.chat__platform-identifier.chat__platform-identifier[data-platform="YT"]{
+	background-color: #FF0000;
+	border: 2px solid #FF0000;
+	left: -1.2rem;
+}
 /* main container default settings, uncomment when pasting to SE */
 /* Body display must be flex for smooth scrolling to work */
 body {
-	/* display: flex; */
+	padding: 3rem;
     mask-image: linear-gradient(transparent ,black 5vh, black 95vh, transparent 100vh);
     -webkit-mask-image: linear-gradient(transparent ,black 5vh, black 95vh, transparent 100vh);
   	mask-size: cover;
@@ -100,6 +125,7 @@ body {
 /* .chat__username[data-role='staff']::before {} */
 
 /* .chat__username[data-role='staff']::after {} */
+
 
 .chat__username-text {
 	font-family: var(--ff-chat--username);
