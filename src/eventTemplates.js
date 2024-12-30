@@ -72,3 +72,12 @@ export const massGiftEvent = (username, giftString)=>{
   </div>`
   return payload;
 }
+export const raidEvent = (username, raidString)=>{
+  let payload = `<div class="event__wrapper">
+  <div class="event__body">
+          <div class="event__username">${username}</div>
+          <div class="event__content--action">${raidString}</div>
+      </div>
+</div>`
+return payload;
+}
