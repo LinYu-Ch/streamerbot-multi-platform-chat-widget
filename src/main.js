@@ -136,7 +136,31 @@ client.on("Twitch.Resub", (obj) => {
 // client.on("Twitch.GiftBomb", (obj) => {
 // });
 client.on("Twitch.Raid", (obj) => {
+  const data = obj.data;
+  
+  let timestamp = obj.timeStamp;
+  let eventId = "nill";
+  let senderId = data.from_broadcaster_user_id;
+  let eventInfo = obj.event;
+  let senderName = data.from_broadcaster_user_name;
+
+  let username = data.from_broadcaster_user_name;
+  let amount = data.viewers;
+  let raidString = `Has raided with ${amount} viewers`;
+
+  let payload = Templates.raidEvent(username, raidString);
+  
+  let eventObj = new EventObj({
+    timestamp: timestamp,
+    eventId: eventId,
+    senderId: senderId,
+    eventInfo: eventInfo,
+    senderName: senderName,
+    payload: payload,
   });
+
+  display.pushToDisplay(eventObj);
+});
 
 client.on("Twitch.ChatMessage", (obj) => {
   const data = obj.data;
