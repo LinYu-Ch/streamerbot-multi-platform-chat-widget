@@ -10,7 +10,7 @@ export class DisplayHandler {
     row.dataset.eventId = EventObj.eventId;
     row.dataset.senderId = EventObj.senderId;
     row.dataset.timestamp = EventObj.timestamp;
-    row.dataset.eventType = EventObj.eventType;
+    row.dataset.eventInfo = EventObj.eventInfo;
     row.dataset.senderName = EventObj.senderName;
 
     row.innerHTML = EventObj.payload;
