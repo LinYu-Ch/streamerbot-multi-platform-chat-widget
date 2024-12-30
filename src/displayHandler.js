@@ -6,6 +6,8 @@ export class DisplayHandler {
   }
 
   pushToDisplay(EventObj) {
+    console.log(`Event sent from: ${EventObj.eventInfo.source} of Type "${EventObj.eventInfo.type}" Has started loading`);
+
     let row = document.createElement("div");
     row.dataset.eventId = EventObj.eventId;
     row.dataset.senderId = EventObj.senderId;
@@ -17,6 +19,8 @@ export class DisplayHandler {
 
     this.display.prepend(row);
     this.value++;
+
+    console.log(`Event sent from: ${EventObj.eventInfo.source} of Type "${EventObj.eventInfo.type}" has succesfully loaded`);
 
     if (this.value > this.maxCount) {
         this.popFromDisplay();
