@@ -23,9 +23,32 @@ let eventAttributes = {
 */
 
 // Twitch engagement events
-/*
+
 client.on("Twitch.Follow", (obj) => {
-});
+  const data = obj.data;
+  
+  let timestamp = obj.timeStamp;
+  let eventId = "nill";
+  let senderId = data.user_id;
+  let eventInfo = obj.event;
+  let senderName = data.user_login;
+
+  let username = data.user_name;
+  let platformNoun = "Has followed";
+
+  let payload = Templates.subscriptionEvent(username, platformNoun);
+
+  let eventObj = new EventObj({
+      timestamp: timestamp,
+      eventId: eventId,
+      senderId: senderId,
+      eventInfo: eventInfo,
+      senderName: senderName,
+      payload: payload,
+    });
+  
+    display.pushToDisplay(eventObj);
+ });
 client.on("Twitch.Cheer", (obj) => {
 });
 client.on("Twitch.Sub", (obj) => {
@@ -38,7 +61,7 @@ client.on("Twitch.GiftBomb", (obj) => {
 });
 client.on("Twitch.Raid", (obj) => {
 });
-*/
+
 client.on("Twitch.ChatMessage", (obj) => {
   const data = obj.data;
   const message = data.message;
@@ -69,9 +92,18 @@ client.on("Twitch.ChatMessage", (obj) => {
 });
 
 // twitch moderation events
-client.on("Twitch.ChatMessageDeleted", (obj) => {});
-client.on("Twitch.UserTimedOut", (obj) => {});
-client.on("Twitch.UserBanned", (obj) => {});
+client.on("Twitch.ChatMessageDeleted", (obj) => {
+  let data = obj.data;
+  display.removeFromDisplay(data.messageId);
+});
+client.on("Twitch.UserTimedOut", (obj) => {
+  let data = obj.data;
+  display.removeFromDisplay(data.user_id);
+});
+client.on("Twitch.UserBanned", (obj) => {
+  let data = obj.data;
+  display.removeFromDisplay(data.user_id);
+});
 
 // YouTube engagement events
 /*
@@ -96,11 +128,9 @@ client.on("YouTube.Message", (obj) => {
   let eventInfo = obj.event;
   let senderName = data.user.name;
 
-
   let username = data.user.name;
   let chat = data.message;
   let platformShorthand = "YT";
-
 
   // this is not an ideal way to classify the actual role, but I will use it as a patch for now since I 
   // can't be bothered to go further -Todd Dec 29 2024
@@ -125,8 +155,13 @@ client.on("YouTube.Message", (obj) => {
 });
 
 // YouTube moderation events
-client.on("YouTube.MessageDeleted", (obj) => {});
-client.on("YouTube.UserBanned", (obj) => {});
+client.on("YouTube.MessageDeleted", (obj) => {
+  throw new Error("Youtube Message has not been implemented");
+});
+client.on("YouTube.UserBanned", (obj) => {
+  let data = obj.data;
+  display.removeFromDisplay(data.bannedUser.id);
+});
 
 // Streamelements engagement events
 client.on("StreamElements.Tip", (obj) => {});
