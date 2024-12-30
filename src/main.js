@@ -103,14 +103,40 @@ client.on("Twitch.Sub", (obj) => {
   display.pushToDisplay(eventObj);
 
 });
-// client.on("Twitch.Resub", (obj) => {
-// });
+client.on("Twitch.Resub", (obj) => {
+  const data = obj.data;
+
+  let timestamp = obj.timeStamp;
+  let eventId = "nill";
+  let senderId = data.user.id;
+  let eventInfo = obj.event;
+  let senderName = data.user.login;
+
+  let username = data.user.name;
+  let amount = data.cumulativeMonths;
+  let tier = `TTVRESUB-${data.sub_tier}`;
+  let donationString = `has resubscribed for ${amount} months!`;
+
+  let payload = Templates.platformDonationEvent(username, donationString, tier);
+
+  let eventObj = new EventObj({
+    timestamp: timestamp,
+    eventId: eventId,
+    senderId: senderId,
+    eventInfo: eventInfo,
+    senderName: senderName,
+    payload: payload,
+  });
+
+  display.pushToDisplay(eventObj);
+
+});
 // client.on("Twitch.GiftSub", (obj) => {
 // });
 // client.on("Twitch.GiftBomb", (obj) => {
 // });
-// client.on("Twitch.Raid", (obj) => {
-// });
+client.on("Twitch.Raid", (obj) => {
+  });
 
 client.on("Twitch.ChatMessage", (obj) => {
   const data = obj.data;
