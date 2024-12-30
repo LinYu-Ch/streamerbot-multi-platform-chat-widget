@@ -50,17 +50,42 @@ client.on("Twitch.Follow", (obj) => {
     display.pushToDisplay(eventObj);
  });
 client.on("Twitch.Cheer", (obj) => {
+  const data = obj.data;
+
+  let timestamp = obj.timeStamp;
+  let eventId = data.message.msgId;
+  let senderId = data.userId;
+  let eventInfo = obj.event;
+  let senderName = data.message.channel;
+
+  let username = data.message.username;
+  let donatedAmount = data.bits;
+  let donationString = `has cheered ${donatedAmount} bits!`;
+
+  let payload = Templates.platformDonationEvent(username, donationString);
+
+  let eventObj = new EventObj({
+    timestamp: timestamp,
+    eventId: eventId,
+    senderId: senderId,
+    eventInfo: eventInfo,
+    senderName: senderName,
+    payload: payload,
+  });
+
+  display.pushToDisplay(eventObj);
+
 });
-client.on("Twitch.Sub", (obj) => {
-});
-client.on("Twitch.Resub", (obj) => {
-});
-client.on("Twitch.GiftSub", (obj) => {
-});
-client.on("Twitch.GiftBomb", (obj) => {
-});
-client.on("Twitch.Raid", (obj) => {
-});
+// client.on("Twitch.Sub", (obj) => {
+// });
+// client.on("Twitch.Resub", (obj) => {
+// });
+// client.on("Twitch.GiftSub", (obj) => {
+// });
+// client.on("Twitch.GiftBomb", (obj) => {
+// });
+// client.on("Twitch.Raid", (obj) => {
+// });
 
 client.on("Twitch.ChatMessage", (obj) => {
   const data = obj.data;
