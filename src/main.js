@@ -76,8 +76,33 @@ client.on("Twitch.Cheer", (obj) => {
   display.pushToDisplay(eventObj);
 
 });
-// client.on("Twitch.Sub", (obj) => {
-// });
+client.on("Twitch.Sub", (obj) => {
+  const data = obj.data;
+
+  let timestamp = obj.timeStamp;
+  let eventId = data.messageId;
+  let senderId = data.user.id;
+  let eventInfo = obj.event;
+  let senderName = data.user.login;
+
+  let username = data.user.name;
+  let tier = `TTVSUB-${data.sub_tier}`;
+  let donationString = `has subscribed`;
+
+  let payload = Templates.platformDonationEvent(username, donationString, tier);
+
+  let eventObj = new EventObj({
+    timestamp: timestamp,
+    eventId: eventId,
+    senderId: senderId,
+    eventInfo: eventInfo,
+    senderName: senderName,
+    payload: payload,
+  });
+
+  display.pushToDisplay(eventObj);
+
+});
 // client.on("Twitch.Resub", (obj) => {
 // });
 // client.on("Twitch.GiftSub", (obj) => {
