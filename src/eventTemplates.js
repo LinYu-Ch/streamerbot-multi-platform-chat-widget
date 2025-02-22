@@ -12,20 +12,20 @@ export const messageEvent = (username, message, platform, roleTierAttribute = "n
     </div>`
     return payload;
   }
-export const subscriptionEvent = (username, platformNoun)=>{
+export const subscriptionEvent = (username, platformVerb)=>{
     let payload = `<div class="event__wrapper">
     <div class="event__body">
             <div class="event__username">${username}</div>
-            <div class="event__content--action">${platformNoun}</div>
+            <div class="event__content--action">${platformVerb}</div>
         </div>
   </div>`
   return payload;
 }
-export const paidSubscriptionEvent = (username, giftString)=>{
+export const paidSubscriptionEvent = (username, subscriptionString)=>{
     let payload = `<div class="event__wrapper">
     <div class="event__body">
             <div class="event__username">${username}</div>
-            <div class="event__content--action">gifted ${giftString}</div>
+            <div class="event__content--action">gifted ${subscriptionString}</div>
         </div>
   </div>`
   return payload;
@@ -45,7 +45,7 @@ export const externalDonationEvent = (username, donationString)=>{
 /* external donation events are for platform centered operations which usually include tiers
 colors, and various currencies
 */
-export const platformDonationEvent = (username, donationString, eventTierAttribute = none)=>{
+export const platformDonationEvent = (username, donationString, eventTierAttribute = null)=>{
     let payload = `<div class="event__wrapper" data-tier="${eventTierAttribute}">
     <div class="event__body">
             <div class="event__username">${username}</div>
@@ -54,6 +54,9 @@ export const platformDonationEvent = (username, donationString, eventTierAttribu
   </div>`
   return payload;
 }
+
+// NOTE:
+// do these really need to be different templates?
 export const giftEvent = (username, giftString)=>{
     let payload = `<div class="event__wrapper">
     <div class="event__body">
