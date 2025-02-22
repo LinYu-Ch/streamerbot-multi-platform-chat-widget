@@ -27,19 +27,40 @@ let eventAttributes = {
 client.on("Twitch.Follow", (obj) => {
   const data = obj.data;
   
-  let timestamp = obj.timeStamp;
+  // eventobj attribute definition
+
+  // NOTE:
+  /**
+   * for future implementations, utilize a search function for the object, 
+   * having an optional secondary attribute for which found instance of the key that should be used
+   */
+  let timeStamp = obj.timeStamp;
   let eventId = "nill";
   let senderId = data.user_id;
   let eventInfo = obj.event;
   let senderName = data.user_login;
 
+  // NOTE:
+  /**
+   * repetition of variables seems unreasonable,
+   * must think of better approach in the future,
+   * likely to be solved by appropriate implementation of Listener-Adapter-Receiver architecture
+   */
   let username = data.user_name;
-  let platformNoun = "Has followed";
+  let platformVerb = "Has followed";
 
-  let payload = Templates.subscriptionEvent(username, platformNoun);
+  let payload = Templates.subscriptionEvent(username, platformVerb);
 
+  // eventobj invocation
+
+  // NOTE: 
+  /**
+   * For V2, the event object can just be invoked with the constructor, 
+   * current implementation is used to maintain structural similarity to avoid confusion
+   * 
+   */
   let eventObj = new EventObj({
-      timestamp: timestamp,
+      timestamp: timeStamp,
       eventId: eventId,
       senderId: senderId,
       eventInfo: eventInfo,
@@ -47,12 +68,15 @@ client.on("Twitch.Follow", (obj) => {
       payload: payload,
     });
   
+    // sending out event object
     display.pushToDisplay(eventObj);
+
  });
+
 client.on("Twitch.Cheer", (obj) => {
   const data = obj.data;
 
-  let timestamp = obj.timeStamp;
+  let timeStamp = obj.timeStamp;
   let eventId = data.message.msgId;
   let senderId = data.userId;
   let eventInfo = obj.event;
@@ -65,7 +89,7 @@ client.on("Twitch.Cheer", (obj) => {
   let payload = Templates.platformDonationEvent(username, donationString);
 
   let eventObj = new EventObj({
-    timestamp: timestamp,
+    timestamp: timeStamp,
     eventId: eventId,
     senderId: senderId,
     eventInfo: eventInfo,
@@ -76,10 +100,11 @@ client.on("Twitch.Cheer", (obj) => {
   display.pushToDisplay(eventObj);
 
 });
+
 client.on("Twitch.Sub", (obj) => {
   const data = obj.data;
 
-  let timestamp = obj.timeStamp;
+  let timeStamp = obj.timeStamp;
   let eventId = data.messageId;
   let senderId = data.user.id;
   let eventInfo = obj.event;
@@ -92,7 +117,7 @@ client.on("Twitch.Sub", (obj) => {
   let payload = Templates.platformDonationEvent(username, donationString, tier);
 
   let eventObj = new EventObj({
-    timestamp: timestamp,
+    timestamp: timeStamp,
     eventId: eventId,
     senderId: senderId,
     eventInfo: eventInfo,
@@ -103,11 +128,12 @@ client.on("Twitch.Sub", (obj) => {
   display.pushToDisplay(eventObj);
 
 });
+
 client.on("Twitch.Resub", (obj) => {
   const data = obj.data;
 
-  let timestamp = obj.timeStamp;
-  let eventId = "nill";
+  let timeStamp = obj.timeStamp;
+  let eventId = data.messageId;
   let senderId = data.user.id;
   let eventInfo = obj.event;
   let senderName = data.user.login;
@@ -120,7 +146,7 @@ client.on("Twitch.Resub", (obj) => {
   let payload = Templates.platformDonationEvent(username, donationString, tier);
 
   let eventObj = new EventObj({
-    timestamp: timestamp,
+    timestamp: timeStamp,
     eventId: eventId,
     senderId: senderId,
     eventInfo: eventInfo,
@@ -131,10 +157,61 @@ client.on("Twitch.Resub", (obj) => {
   display.pushToDisplay(eventObj);
 
 });
-// client.on("Twitch.GiftSub", (obj) => {
-// });
-// client.on("Twitch.GiftBomb", (obj) => {
-// });
+
+client.on("Twitch.GiftSub", (obj) => {
+  const data = obj.data;
+
+  let timeStamp = obj.timeStamp;
+  let eventId = data.messageId;
+  let senderId = data.user.id;
+  let eventInfo = obj.event;
+  let senderName = data.user.login;
+
+  let sender = data.user.name;
+  let receiver = data.recepient.name;
+  let donationString = `has gifted a subscription to ${receiver}`;
+
+  let payload = Templates.platformDonationEvent(sender, donationString);
+
+  let eventObj = new EventObj({
+    timestamp: timeStamp,
+    eventId: eventId,
+    senderId: senderId,
+    eventInfo: eventInfo,
+    senderName: senderName,
+    payload: payload,
+  });
+
+  display.pushToDisplay(eventObj);
+});
+
+client.on("Twitch.GiftBomb", (obj) => {
+  const data = obj.data;
+
+  let timeStamp = obj.timeStamp;
+  let eventId = data.messageId;
+  let senderId = data.user.id;
+  let eventInfo = obj.event;
+  let senderName = data.user.login;
+
+  let sender = data.user.name;
+  let total = data.total;
+  let donationString = `has gifted ${total} subscriptions`;
+
+  let payload = Templates.platformDonationEvent(sender, donationString);
+
+  let eventObj = new EventObj({
+    timestamp: timeStamp,
+    eventId: eventId,
+    senderId: senderId,
+    eventInfo: eventInfo,
+    senderName: senderName,
+    payload: payload,
+  });
+
+  display.pushToDisplay(eventObj);
+});
+
 client.on("Twitch.Raid", (obj) => {
   const data = obj.data;
   
@@ -196,28 +273,179 @@ client.on("Twitch.ChatMessageDeleted", (obj) => {
   let data = obj.data;
   display.removeFromDisplay(data.messageId);
 });
+
 client.on("Twitch.UserTimedOut", (obj) => {
   let data = obj.data;
   display.removeFromDisplay(data.user_id);
 });
+
 client.on("Twitch.UserBanned", (obj) => {
   let data = obj.data;
   display.removeFromDisplay(data.user_id);
 });
 
 // YouTube engagement events
-/*
 client.on("YouTube.NewSubscriber", (obj) => {
+  const data = obj.data;
+  
+  let timeStamp = obj.timeStamp;
+  let eventId = null;
+  let senderId = data.userId;
+  let eventInfo = obj.event;
+  let senderName = data.username;
+
+  let username = data.username;
+  let platformVerb = "Has subscribed";
+
+  let payload = Templates.subscriptionEvent(username, platformVerb);
+
+  let eventObj = new EventObj({
+      timestamp: timeStamp,
+      eventId: eventId,
+      senderId: senderId,
+      eventInfo: eventInfo,
+      senderName: senderName,
+      payload: payload,
+    });
+  
+    display.pushToDisplay(eventObj);
 });
 client.on("YouTube.SuperChat", (obj) => {
+  const data = obj.data;
+  
+  let timeStamp = obj.timeStamp;
+  let eventId = data.eventId;
+  let senderId = data.user.id;
+  let eventInfo = obj.event;
+  let senderName = data.user.name;
+
+  let username = data.user.name;
+  let amountString = data.amount;
+  let tier = `${data.tier}`;
+
+  // this is a horrible way to do this, please change the implementation in v2. 
+  // there is a dependency in the css definitions.
+  // we should separate the event listeners from the display handlers, let the display handler determine the tier scheme
+
+  let tierAttribute = {
+    "1": "superchat-one",
+    "2": "superchat-two",
+    "3": "superchat-three",
+    "4": "superchat-four",
+    "5": "superchat-five",
+    "6": "superchat-six",
+    "7": "superchat-seven",
+  }
+  
+  let payload = Templates.platformDonationEvent(username, amountString, tierAttribute[tier]);
+
+  let eventObj = new EventObj({
+      timestamp: timeStamp,
+      eventId: eventId,
+      senderId: senderId,
+      eventInfo: eventInfo,
+      senderName: senderName,
+      payload: payload,
+    });
+  
+    display.pushToDisplay(eventObj);
 });
+
+// supersticker object signature not found, using superchat signature as placeholder
+// should be noted in case of test failures
 client.on("YouTube.SuperSticker", (obj) => {
+  const data = obj.data;
+  
+  let timeStamp = obj.timeStamp;
+  let eventId = data.eventId;
+  let senderId = data.user.id;
+  let eventInfo = obj.event;
+  let senderName = data.user.name;
+
+  let username = data.user.name;
+  let amountString = data.amount;
+  let tier = `${data.tier}`;
+
+  let tierAttribute = {
+    "1": "superchat-one",
+    "2": "superchat-two",
+    "3": "superchat-three",
+    "4": "superchat-four",
+    "5": "superchat-five",
+    "6": "superchat-six",
+    "7": "superchat-seven",
+  }
+  
+  let payload = Templates.platformDonationEvent(username, amountString, tierAttribute[tier]);
+
+  let eventObj = new EventObj({
+      timestamp: timeStamp,
+      eventId: eventId,
+      senderId: senderId,
+      eventInfo: eventInfo,
+      senderName: senderName,
+      payload: payload,
+    });
+  
+    display.pushToDisplay(eventObj);
 });
+
 client.on("YouTube.NewSponsor", (obj) => {
+  const data = obj.data;
+  
+  let timeStamp = obj.timeStamp;
+  let eventId = data.eventId;
+  let senderId = data.user.id;
+  let eventInfo = obj.event;
+  let senderName = data.user.name;
+
+  let username = data.user.name;
+  let tierName = data.levelName;
+
+  let subscriptionString = `just became a ${tierName}`;
+
+  let payload = Templates.paidSubscriptionEvent(username, subscriptionString);
+
+  let eventObj = new EventObj({
+      timestamp: timeStamp,
+      eventId: eventId,
+      senderId: senderId,
+      eventInfo: eventInfo,
+      senderName: senderName,
+      payload: payload,
+    });
+  
+    display.pushToDisplay(eventObj);
 });
 client.on("YouTube.MembershipGift", (obj) => {
+  const data = obj.data;
+  
+  let timeStamp = obj.timeStamp;
+  let eventId = data.eventId;
+  let senderId = data.user.id;
+  let eventInfo = obj.event;
+  let senderName = data.user.name;
+
+  let username = data.user.name;
+  let amount = data.count;
+  let membershiftString = amount > 1 ? "memberships" : "membership";
+
+  let subscriptionString = `just gifted ${amount} ${membershiftString}`;
+
+  let payload = Templates.massGiftEvent(username, subscriptionString);
+
+  let eventObj = new EventObj({
+      timestamp: timeStamp,
+      eventId: eventId,
+      senderId: senderId,
+      eventInfo: eventInfo,
+      senderName: senderName,
+      payload: payload,
+    });
+  
+    display.pushToDisplay(eventObj);
 });
-*/
+
 client.on("YouTube.Message", (obj) => {
   // console.log(obj);
   const data = obj.data;
@@ -256,8 +484,15 @@ client.on("YouTube.Message", (obj) => {
 
 // YouTube moderation events
 client.on("YouTube.MessageDeleted", (obj) => {
+  /** 
+   * IDK what is happening, it just kind of seems like messageDeleted events don't really show up
+   * I even had my supplier give me a full 2 hour stream of user data, and nothing was found. 
+   * I will assume for now that user message deletions aren't used in favor of the userbanned event
+   * the user banned event and the timeout events, for the purposes of chatboxes behave the same anyways
+   */ 
   throw new Error("Youtube Message has not been implemented");
 });
+
 client.on("YouTube.UserBanned", (obj) => {
   let data = obj.data;
   display.removeFromDisplay(data.bannedUser.id);
