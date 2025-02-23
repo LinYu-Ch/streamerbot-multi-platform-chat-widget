@@ -15,15 +15,35 @@ export class DisplayHandler {
     row.dataset.eventInfo = EventObj.eventInfo;
     row.dataset.senderName = EventObj.senderName;
 
+
+    
     row.innerHTML = EventObj.payload;
 
+    // appends the row into the page
     this.display.prepend(row);
+    // saves the states of the current row, so we know the original value
+    let displayRecord = row.style.display ?? "initial";
+
+    let rowImages = row.querySelectorAll("img");
+    let imgCount = rowImages.length;
+
+    // if there are images, prevent the row from loading, wait until all the images have finished loading
+    if (imgCount > 0) {
+      row.style.display = "none";
+      rowImages.forEach((image) => {
+        image.addEventListener("load", () => {
+          imgCount--;
+          if (imgCount >= 0) row.style.display = displayRecord;
+        });
+      });
+    }
+
     this.value++;
 
     console.log(`Event sent from: ${EventObj.eventInfo.source} of Type "${EventObj.eventInfo.type}" has succesfully loaded`);
 
     if (this.value > this.maxCount) {
-        this.popFromDisplay();
+      this.popFromDisplay();
     }
 
   }
