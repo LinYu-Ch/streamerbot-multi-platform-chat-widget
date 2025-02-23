@@ -9,7 +9,36 @@ import { DisplayHandler } from "./displayHandler";
 const client = new StreamerbotClient();
 const display = new DisplayHandler(document.getElementById("display"));
 
-// TODO implement the client.on event handlers
+// temporary storage for current development, should be moved to its own module at a later time
+function mediaEncode(messageString, emotes) {
+  if (emotes.length <= 0) {
+    console.log("emote not present");
+    return messageString;
+  };
+
+  let messageAsArray = messageString.split("");
+
+  // loops through the string, from higher index to lower index
+  // creates a new image tag corresponding to the emote array
+  // replaces the original string with an encoded html format
+  for (let backItterator = emotes.length; backItterator > 0; backItterator--) {
+    let currentEmote = emotes[backItterator - 1];
+    let emoteSrc = currentEmote.imageUrl;
+    let emoteTarget = currentEmote.startIndex;
+    let keyLength = currentEmote.endIndex - emoteTarget + 1;
+    
+    let fullEmote = document.createElement("img");
+    // new img element created
+
+    fullEmote.src = emoteSrc;
+    fullEmote.alt = currentEmote.name;
+    console.log(fullEmote);      
+    messageAsArray.splice(emoteTarget, keyLength, fullEmote.outerHTML);
+  }
+
+  //emote appending successfull, returning encoded string
+  return messageAsArray.join(" ");
+}
 
 /*
 let eventAttributes = {
@@ -240,6 +269,7 @@ client.on("Twitch.Raid", (obj) => {
 });
 
 client.on("Twitch.ChatMessage", (obj) => {
+  console.log(obj);
   const data = obj.data;
   const message = data.message;
 
@@ -250,9 +280,11 @@ client.on("Twitch.ChatMessage", (obj) => {
   let senderName = message.channel;
 
   let username = message.username;
-  let chat = message.message;
+  let chat = mediaEncode(message.message, message.emotes);
   let platformShorthand = "TTV";
   let role = message.role > 2 ? "staff" : "";
+
+
 
   let payload = Templates.messageEvent(username, chat, platformShorthand, role);
 
