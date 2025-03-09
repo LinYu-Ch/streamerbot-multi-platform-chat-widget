@@ -30,11 +30,13 @@ import {
     generateTwitchCheer,
     generateTwitchRaid,
     generateTwitchChatMessage,
-    // generateYoutubeNewSubscriber,
-    // generateYoutubeMessage,
-    // generateYoutubeNewSponsor,
-    // generateYoutubeMembershipGift,
-    // generateYoutubeSuperChat,
+    generateEmoteOnlyTwitchChatMessage,
+    generateYoutubeNewSubscriber,
+    generateYoutubeMessage,
+    generateEmoteOnlyYoutubeMessage,
+    generateYoutubeNewSponsor,
+    generateYoutubeMembershipGift,
+    generateYoutubeSuperChat,
 } from "./testEvents"
 
 const eventMappings = [
@@ -46,12 +48,14 @@ const eventMappings = [
     { id: "twitchGiftBomb", generator: generateTwitchGiftBomb, handler: twitchGiftBomb },
     { id: "twitchRaid", generator: generateTwitchRaid, handler: twitchRaid },
     { id: "twitchChatMessage", generator: generateTwitchChatMessage, handler: twitchChatMessage },
-    // { id: "youtubeNewSubscriber", generator: generateYoutubeNewSubscriber, handler: youtubeNewSubscriber },
-    // { id: "youtubeSuperChat", generator: generateYoutubeSuperChat, handler: youtubeSuperChat },
-    // { id: "youtubenewSponsor", generator: generateYoutubeNewSponsor, handler: youtubenewSponsor },
-    // { id: "youtubeMembershipGift", generator: generateYoutubeMembershipGift, handler: youtubeMembershipGift },
-    // { id: "youtubeMessage", generator: generateYoutubeMessage, handler: youtubeMessage },
-    // { id: "youtubeSuperSticker", generator: generateYoutubeSuperChat, handler: youtubeSuperSticker },
+    { id: "twitchEmoteOnlyMessage", generator: generateEmoteOnlyTwitchChatMessage, handler: twitchChatMessage },
+    { id: "youtubeNewSubscriber", generator: generateYoutubeNewSubscriber, handler: youtubeNewSubscriber },
+    { id: "youtubeSuperChat", generator: generateYoutubeSuperChat, handler: youtubeSuperChat },
+    { id: "youtubenewSponsor", generator: generateYoutubeNewSponsor, handler: youtubenewSponsor },
+    { id: "youtubeMembershipGift", generator: generateYoutubeMembershipGift, handler: youtubeMembershipGift },
+    { id: "youtubeMessage", generator: generateYoutubeMessage, handler: youtubeMessage },
+    { id: "youtubeEmoteOnlyMessage", generator: generateEmoteOnlyYoutubeMessage, handler: youtubeMessage },
+    { id: "youtubeSuperSticker", generator: generateYoutubeSuperChat, handler: youtubeSuperSticker },
   ];
   
   eventMappings.forEach(({ id, generator, handler }) => {
