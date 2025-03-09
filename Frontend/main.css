@@ -64,13 +64,13 @@
 }
 /* main container default settings, uncomment when pasting to SE */
 /* Body display must be flex for smooth scrolling to work */
-body {
+/* body {
 	padding: 3rem;
     mask-image: linear-gradient(transparent ,black 5vh, black 95vh, transparent 100vh);
     -webkit-mask-image: linear-gradient(transparent ,black 5vh, black 95vh, transparent 100vh);
   	mask-size: cover;
   	-webkit-mask-size: cover;
-}
+} */
 .chat__wrapper {
     margin-top: 5px;
 }

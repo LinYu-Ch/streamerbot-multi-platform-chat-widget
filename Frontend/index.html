@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link rel="stylesheet" href="main.css"> -->
+    <link rel="stylesheet" href="main.css">
     <title>Chatbox Test Environment</title>
   </head>
   <body>
@@ -57,28 +57,29 @@
       <ol id="control-pannel">
         <li><h2>Test pannel</h2></li>
         <li><h3>Test Messages</h3></li>
-        <li><button id="button-8" class="test-button twt">Twitch ChatMessage</button></li>
-        <li><button id="button-13" class="test-button yt">Youtube Message</button></li>
-        <li><button id="button-13" class="test-button twt">Youtube Emote Only</button></li>
-        <li><button id="button-13" class="test-button yt">Twitch Emote Only</button></li>
+        <li><button id="twitchChatMessage" class="test-button twt">Twitch ChatMessage</button></li>
+        <li><button id="youtubeMessage" class="test-button yt">Youtube Message</button></li>
+        <li><button id="youtubeEmoteOnlyMessage" class="test-button yt">Youtube Emote Only</button></li>
+        <li><button id="twitchEmoteOnlyMessage" class="test-button twt">Twitch Emote Only</button></li>
         
         <li><h3>Test Unpaid Subscriptions</h3></li>
-        <li><button id="button-1" class="test-button twt">Twitch Follow</button></li>
-        <li><button id="button-9" class="test-button yt">Youtube NewSubscriber </button></li>
+        <li><button id="twitchFollow" class="test-button twt">Twitch Follow</button></li>
+        <li><button id="youtubeNewSubscriber" class="test-button yt">Youtube NewSubscriber </button></li>
         <li><h3>Test Subscriptions</h3></li>
-        <li><button id="button-3" class="test-button twt">Twitch Sub</button></li>
-        <li><button id="button-4" class="test-button twt">Twitch Resub</button></li>
-        <li><button id="button-5" class="test-button twt">Twitch GiftSub</button></li>
-        <li><button id="button-6" class="test-button twt">Twitch GiftBomb</button></li>
-        <li><button id="button-11" class="test-button yt">Youtube NewSponsor</button></li>
-        <li><button id="button-12" class="test-button yt">Youtube MembershipGift</button></li>
+        <li><button id="twitchSub" class="test-button twt">Twitch Sub</button></li>
+        <li><button id="twitchResub" class="test-button twt">Twitch Resub</button></li>
+        <li><button id="twitchGiftSub" class="test-button twt">Twitch GiftSub</button></li>
+        <li><button id="twitchGiftBomb" class="test-button twt">Twitch GiftBomb</button></li>
+        <li><button id="youtubenewSponsor" class="test-button yt">Youtube NewSponsor</button></li>
+        <li><button id="youtubeMembershipGift" class="test-button yt">Youtube MembershipGift</button></li>
       
         <li><h3>Test Donations</h3></li>
-        <li><button id="button-2" class="test-button twt">Twitch Cheer</button></li>
-        <li><button id="button-10" class="test-button yt">Youtube SuperSticker</button></li>
+        <li><button id="twitchCheer" class="test-button twt">Twitch Cheer</button></li>
+        <li><button id="youtubeSuperSticker" class="test-button yt">Youtube SuperSticker</button></li>
+        <li><button id="youtubeSuperChat" class="test-button yt">Youtube SuperChat</button></li>
       
         <li><h3>Misc Tests</h3></li>
-        <li><button id="button-7" class="test-button twt">Twitch Raid</button></li>
+        <li><button id="twitchRaid" class="test-button twt">Twitch Raid</button></li>
         </ol>
 
         <div id="debug-pannel">
@@ -88,13 +89,14 @@
 
         <div id="output-pannel">
           <h2>Output pannel</h2>
-          <div style="outline: 1px solid black; min-width: 10rem; height: 100%" id="display">
+          <div style="outline: 1px solid black; min-width: 10rem; height: 100%; width: 35rem; padding: 3rem;" id="display">
+          
           </div>
         </div>
     </div>
 
     
-    <script type="module" src="/src/main.js"></script>
+    <!-- <script type="module" src="/src/main.js"></script> -->
     <script type="module" src="/src/testMain.js"></script>
   </body>
 </html>

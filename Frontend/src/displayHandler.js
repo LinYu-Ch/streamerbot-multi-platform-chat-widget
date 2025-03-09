@@ -14,8 +14,6 @@ export class DisplayHandler {
     row.dataset.timestamp = EventObj.timestamp;
     row.dataset.eventInfo = EventObj.eventInfo;
     row.dataset.senderName = EventObj.senderName;
-
-
     
     row.innerHTML = EventObj.payload;
 
@@ -37,7 +35,8 @@ export class DisplayHandler {
         });
       });
     }
-
+    
+    
     this.value++;
 
     console.log(`Event sent from: ${EventObj.eventInfo.source} of Type "${EventObj.eventInfo.type}" has succesfully loaded`);
@@ -74,3 +73,4 @@ export class DisplayHandler {
     });
   }
 }
+
