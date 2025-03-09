@@ -1,12 +1,3 @@
-// TODO: Set up custom names
-// TODO: Set up a UUID generator
-
-// TODO: Set up User package generator (MSG + USER RANK + USER ID)
-// TODO: Set up Message pack generator (MSG + User)
-// TODO: Set up donation event pack generator (User + Donation ~+ Message)
-// NOTE: Youtube and twitch objects have different signatures, may be difficult
-// to make uniform generators
-
 // general loops
 const customNames = ["Amigravity", "Teacuppity", "Luke", "Mile", "OmegaPendragon", "SeriouslyifyouhaveanamethislongIhateyou"];
 let nameIndex = 0;
