@@ -31,7 +31,7 @@ function mediaEncode(messageString, emotes) {
     }
 
     //emote appending successfull, returning encoded string
-    return messageAsArray.join(" ");
+    return messageAsArray.join("");
 }
 
 export const twitchFollow = (obj) => {
@@ -171,7 +171,7 @@ export const twitchGiftSub = (obj) => {
     let senderName = data.user.login;
 
     let sender = data.user.name;
-    let receiver = data.recepient.name;
+    let receiver = data.recipient.login;
     let donationString = `has gifted a subscription to ${receiver}`;
 
     let payload = Templates.platformDonationEvent(sender, donationString);
