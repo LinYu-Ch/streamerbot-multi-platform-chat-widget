@@ -8,17 +8,32 @@
 const PORT = 10890;
 
 // importing required APIs
+const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
 
-const httpServer = http.createServer();
-const socketServer = new Server(httpServer);
+const app = express();
+const httpServer = http.createServer(app);
+const socketServer = new Server(httpServer, {
+  cors:{
+    origin: "http://localhost:5173", // Allow your client origin
+    methods: ["GET", "POST"],
+  }
+});
 
 httpServer.listen(PORT, () => {
-  console.log(`Socket.IO server is active on host: ${HOST}, port ${PORT}`);
+  console.log(`Socket.IO server is active on port ${PORT}`);
   }
 );
 
 socketServer.on("connection", (socket) => {
-  console.log("Connection established");
+  console.log("Connection established", socket.id);
+  
+  // wow this is horrible nesting - TODD 
+  socket.on("control", (obj)=>{
+    console.log("control object received", obj.eventType);
+    socketServer.emit("command", obj);
+  });
 });
+
+
