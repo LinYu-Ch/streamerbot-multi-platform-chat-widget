@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "socket.io": "^4.8.1"
+  },
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend service for multi platform chat widget",
+  "main": "index.js",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "test"
+  },
+  "author": "AnAverageCaret",
+  "license": "ISC"
+}
