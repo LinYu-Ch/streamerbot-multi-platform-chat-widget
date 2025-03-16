@@ -1,4 +1,7 @@
 import { StreamerbotClient } from "@streamerbot/client";
+import { DisplayHandler } from "./displayHandler";
+const display = new DisplayHandler(document.getElementById("display"));
+
 import {
   twitchFollow,
   twitchCheer,
@@ -38,82 +41,82 @@ let eventAttributes = {
 // Twitch engagement events
 
 client.on("Twitch.Follow", (obj) => {
-  twitchFollow(obj);
+  display.pushToDisplay(twitchFollow(obj));
 });
 
 client.on("Twitch.Cheer", (obj) => {
-  twitchCheer(obj);
+  display.pushToDisplay(twitchCheer(obj));
 });
 
 client.on("Twitch.Sub", (obj) => {
-  twitchSub(obj);
+  display.pushToDisplay(twitchSub(obj));
 });
 
 client.on("Twitch.Resub", (obj) => {
-  twitchResub(obj);
+  display.pushToDisplay(twitchResub(obj));
 });
 
 client.on("Twitch.GiftSub", (obj) => {
-  twitchGiftSub(obj);
+  display.pushToDisplay(twitchGiftSub(obj));
 });
 
 client.on("Twitch.GiftBomb", (obj) => {
-  twitchGiftBomb(obj);
+  display.pushToDisplay(twitchGiftBomb(obj));
 });
 
 client.on("Twitch.Raid", (obj) => {
-  twitchRaid(obj);
+  display.pushToDisplay(twitchRaid(obj));
 });
 
 client.on("Twitch.ChatMessage", (obj) => {
-  twitchChatMessage(obj);
+  display.pushToDisplay(twitchChatMessage(obj));
 });
 
 // twitch moderation events
 client.on("Twitch.ChatMessageDeleted", (obj) => {
-  twitchChatMessageDeleted(obj);
+  display.removeFromDisplay(twitchChatMessageDeleted(obj));
 });
 
 client.on("Twitch.UserTimedOut", (obj) => {
-  twitchUserTimedOut(obj);
+  display.removeFromDisplay(twitchUserTimedOut(obj));
 });
 
 client.on("Twitch.UserBanned", (obj) => {
-  twitchUserBanned(obj);
+  display.removeFromDisplay(twitchUserBanned(obj));
 });
 
 // YouTube engagement events
 client.on("YouTube.NewSubscriber", (obj) => {
-  youtubeNewSubscriber(obj);
+  display.pushToDisplay(youtubeNewSubscriber(obj));
 });
 client.on("YouTube.SuperChat", (obj) => {
-  youtubeSuperChat(obj);
+  display.pushToDisplay(youtubeSuperChat(obj));
 });
 
 // supersticker object signature not found, using superchat signature as placeholder
 // should be noted in case of test failures
 client.on("YouTube.SuperSticker", (obj) => {
-  youtubeSuperSticker(obj);
+  display.pushToDisplay(youtubeSuperSticker(obj));
 });
 
 client.on("YouTube.NewSponsor", (obj) => {
-  youtubenewSponsor(obj);
+  display.pushToDisplay(youtubenewSponsor(obj));
 });
 client.on("YouTube.MembershipGift", (obj) => {
-  youtubeMembershipGift(obj);
+  display.pushToDisplay(youtubeMembershipGift(obj));
 });
 
 client.on("YouTube.Message", (obj) => {
-  youtubeMessage(obj);
+  display.pushToDisplay(youtubeMessage(obj));
 });
 
 // YouTube moderation events
 client.on("YouTube.MessageDeleted", (obj) => {
-  youtubeMessageDeleted(obj);
+  display.removeFromDisplay(youtubeMessageDeleted(obj));
 });
 
 client.on("YouTube.UserBanned", (obj) => {
-  youtubeUserBanned(obj);
+  display.removeFromDisplay(youtubeUserBanned(obj));
 });
 
 // Streamelements engagement events

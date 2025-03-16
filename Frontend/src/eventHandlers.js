@@ -1,7 +1,5 @@
 import { EventObj } from "./eventObject";
 import * as Templates from "./eventTemplates";
-import { DisplayHandler } from "./displayHandler";
-const display = new DisplayHandler(document.getElementById("display"));
 
 // temporary storage for current development, should be moved to its own module at a later time
 function mediaEncode(messageString, emotes) {
@@ -79,7 +77,7 @@ export const twitchFollow = (obj) => {
     });
 
     // sending out event object
-    display.pushToDisplay(eventObj);
+    return eventObj;
 }
 export const twitchCheer = (obj) => {
     const data = obj.data;
@@ -105,7 +103,7 @@ export const twitchCheer = (obj) => {
         payload: payload,
     });
 
-    display.pushToDisplay(eventObj);
+    return eventObj;
 }
 export const twitchSub = (obj) => {
     const data = obj.data;
@@ -131,7 +129,7 @@ export const twitchSub = (obj) => {
         payload: payload,
     });
 
-    display.pushToDisplay(eventObj);
+    return eventObj;
 
 }
 export const twitchResub = (obj) => {
@@ -159,7 +157,7 @@ export const twitchResub = (obj) => {
         payload: payload,
     });
 
-    display.pushToDisplay(eventObj);
+    return eventObj;
 }
 export const twitchGiftSub = (obj) => {
     const data = obj.data;
@@ -185,7 +183,7 @@ export const twitchGiftSub = (obj) => {
         payload: payload,
     });
 
-    display.pushToDisplay(eventObj);
+    return eventObj;
 }
 export const twitchGiftBomb = (obj) => {
     const data = obj.data;
@@ -211,7 +209,7 @@ export const twitchGiftBomb = (obj) => {
         payload: payload,
     });
 
-    display.pushToDisplay(eventObj);
+    return eventObj;
 }
 export const twitchRaid = (obj) => {
     const data = obj.data;
@@ -237,7 +235,7 @@ export const twitchRaid = (obj) => {
         payload: payload,
     });
 
-    display.pushToDisplay(eventObj);
+    return eventObj;
 }
 export const twitchChatMessage = (obj) => {
     console.log(obj);
@@ -266,19 +264,19 @@ export const twitchChatMessage = (obj) => {
         payload: payload,
     });
 
-    display.pushToDisplay(eventObj);
+    return eventObj;
 }
 export const twitchChatMessageDeleted = (obj) => {
     let data = obj.data;
-    display.removeFromDisplay(data.messageId);
+    return data.messageId;
 }
 export const twitchUserTimedOut = (obj) => {
     let data = obj.data;
-    display.removeFromDisplay(data.user_id);
+    return data.messageId;
 }
 export const twitchUserBanned = (obj) => {
     let data = obj.data;
-    display.removeFromDisplay(data.user_id);
+    return data.messageId;
 }
 export const youtubeNewSubscriber = (obj) => {
     const data = obj.data;
@@ -303,7 +301,7 @@ export const youtubeNewSubscriber = (obj) => {
         payload: payload,
     });
 
-    display.pushToDisplay(eventObj);
+    return eventObj;
 }
 export const youtubeSuperChat = (obj) => {
     const data = obj.data;
@@ -343,7 +341,7 @@ export const youtubeSuperChat = (obj) => {
         payload: payload,
     });
 
-    display.pushToDisplay(eventObj);
+    return eventObj;
 }
 export const youtubeSuperSticker = (obj) => {
     const data = obj.data;
@@ -379,7 +377,7 @@ export const youtubeSuperSticker = (obj) => {
         payload: payload,
     });
 
-    display.pushToDisplay(eventObj);
+    return eventObj;
 }
 export const youtubenewSponsor = (obj) => {
     const data = obj.data;
@@ -406,7 +404,7 @@ export const youtubenewSponsor = (obj) => {
         payload: payload,
     });
 
-    display.pushToDisplay(eventObj);
+    return eventObj;
 }
 export const youtubeMembershipGift = (obj) => {
     const data = obj.data;
@@ -434,7 +432,7 @@ export const youtubeMembershipGift = (obj) => {
         payload: payload,
     });
 
-    display.pushToDisplay(eventObj);
+    return eventObj;
 }
 export const youtubeMessage = (obj) => {
     console.log(obj);
@@ -469,7 +467,7 @@ export const youtubeMessage = (obj) => {
         payload: payload,
     });
 
-    display.pushToDisplay(eventObj);
+    return eventObj;
 }
 export const youtubeMessageDeleted = (obj) => {
     /** 
@@ -482,5 +480,5 @@ export const youtubeMessageDeleted = (obj) => {
 }
 export const youtubeUserBanned = (obj) => {
     let data = obj.data;
-    display.removeFromDisplay(data.bannedUser.id);
+    return data.bannedUser.id;
 }

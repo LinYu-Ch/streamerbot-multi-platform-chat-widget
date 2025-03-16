@@ -2,8 +2,11 @@
  * part of front end testing environment, 
  * disconnected from streamerbot: Results may varry depending on how up to date
  * test events are
- * _METADATA: Last modified(march 8)
+ * _METADATA: Last modified(march 15)
 */
+import { DisplayHandler } from "./displayHandler";
+const display = new DisplayHandler(document.getElementById("display"));
+
 import {
     twitchFollow,
     twitchCheer,
@@ -63,7 +66,8 @@ const eventMappings = [
     if (btn) {
       btn.addEventListener("click", () => {
         const eventData = generator();
-        handler(eventData);
+        const eventPayload = handler(eventData);
+        display.pushToDisplay(eventPayload);
       });
     }
   });
