@@ -4,25 +4,15 @@
  * test events are
  * _METADATA: Last modified(march 15)
 */
-import { DisplayHandler } from "./displayHandler";
-const display = new DisplayHandler(document.getElementById("display"));
+import { io } from "socket.io-client";
 
-import {
-    twitchFollow,
-    twitchCheer,
-    twitchSub,
-    twitchResub,
-    twitchGiftSub,
-    twitchGiftBomb,
-    twitchRaid,
-    twitchChatMessage,
-    youtubeNewSubscriber,
-    youtubeSuperChat,
-    youtubeSuperSticker,
-    youtubenewSponsor,
-    youtubeMembershipGift,
-    youtubeMessage,
-} from "./eventHandlers";
+const PORT = 10890;
+const socket = io(`http://localhost:${PORT}`);
+
+function sendToServer(payload, socket) {
+  console.log("sending:", payload);
+  socket.emit("control", payload);
+}
 
 import {
     generateTwitchFollow,
@@ -43,32 +33,39 @@ import {
 } from "./testEvents"
 
 const eventMappings = [
-    { id: "twitchFollow", generator: generateTwitchFollow, handler: twitchFollow },
-    { id: "twitchCheer", generator: generateTwitchCheer, handler: twitchCheer },
-    { id: "twitchSub", generator: generateTwitchSub, handler: twitchSub },
-    { id: "twitchResub", generator: generateTwitchResub, handler: twitchResub },
-    { id: "twitchGiftSub", generator: generateTwitchGiftSub, handler: twitchGiftSub },
-    { id: "twitchGiftBomb", generator: generateTwitchGiftBomb, handler: twitchGiftBomb },
-    { id: "twitchRaid", generator: generateTwitchRaid, handler: twitchRaid },
-    { id: "twitchChatMessage", generator: generateTwitchChatMessage, handler: twitchChatMessage },
-    { id: "twitchEmoteOnlyMessage", generator: generateEmoteOnlyTwitchChatMessage, handler: twitchChatMessage },
-    { id: "youtubeNewSubscriber", generator: generateYoutubeNewSubscriber, handler: youtubeNewSubscriber },
-    { id: "youtubeSuperChat", generator: generateYoutubeSuperChat, handler: youtubeSuperChat },
-    { id: "youtubenewSponsor", generator: generateYoutubeNewSponsor, handler: youtubenewSponsor },
-    { id: "youtubeMembershipGift", generator: generateYoutubeMembershipGift, handler: youtubeMembershipGift },
-    { id: "youtubeMessage", generator: generateYoutubeMessage, handler: youtubeMessage },
-    { id: "youtubeEmoteOnlyMessage", generator: generateEmoteOnlyYoutubeMessage, handler: youtubeMessage },
-    { id: "youtubeSuperSticker", generator: generateYoutubeSuperChat, handler: youtubeSuperSticker },
+    { id: "twitchFollow", generator: generateTwitchFollow, handler: "twitchFollow" },
+    { id: "twitchCheer", generator: generateTwitchCheer, handler: "twitchCheer" },
+    { id: "twitchSub", generator: generateTwitchSub, handler: "twitchSub" },
+    { id: "twitchResub", generator: generateTwitchResub, handler: "twitchResub" },
+    { id: "twitchGiftSub", generator: generateTwitchGiftSub, handler: "twitchGiftSub" },
+    { id: "twitchGiftBomb", generator: generateTwitchGiftBomb, handler: "twitchGiftBomb" },
+    { id: "twitchRaid", generator: generateTwitchRaid, handler: "twitchRaid" },
+    { id: "twitchChatMessage", generator: generateTwitchChatMessage, handler: "twitchChatMessage" },
+    { id: "twitchEmoteOnlyMessage", generator: generateEmoteOnlyTwitchChatMessage, handler: "twitchChatMessage" },
+    { id: "youtubeNewSubscriber", generator: generateYoutubeNewSubscriber, handler: "youtubeNewSubscriber" },
+    { id: "youtubeSuperChat", generator: generateYoutubeSuperChat, handler: "youtubeSuperChat" },
+    { id: "youtubenewSponsor", generator: generateYoutubeNewSponsor, handler: "youtubenewSponsor" },
+    { id: "youtubeMembershipGift", generator: generateYoutubeMembershipGift, handler: "youtubeMembershipGift" },
+    { id: "youtubeMessage", generator: generateYoutubeMessage, handler: "youtubeMessage" },
+    { id: "youtubeEmoteOnlyMessage", generator: generateEmoteOnlyYoutubeMessage, handler: "youtubeMessage" },
+    { id: "youtubeSuperSticker", generator: generateYoutubeSuperChat, handler: "youtubeSuperSticker" },
   ];
   
-  eventMappings.forEach(({ id, generator, handler }) => {
+  socket.on("connect", () => {
+    console.log("(SBCHAT) CONTROLER connection with backend server established on port: ", PORT);
+    eventMappings.forEach(({ id, generator, handler }) => {
     const btn = document.getElementById(id);
     if (btn) {
       btn.addEventListener("click", () => {
         const eventData = generator();
-        const eventPayload = handler(eventData);
-        display.pushToDisplay(eventPayload);
+        const eventPayload = {
+          eventType: handler,
+          eventData: eventData,
+        }
+        sendToServer(eventPayload, socket);
       });
     }
   });
   
+  });
+
