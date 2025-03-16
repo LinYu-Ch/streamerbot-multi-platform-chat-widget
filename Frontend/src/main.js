@@ -1,7 +1,9 @@
 import { StreamerbotClient } from "@streamerbot/client";
 import { DisplayHandler } from "./displayHandler";
+import { io } from "socket.io-client";
 const display = new DisplayHandler(document.getElementById("display"));
 
+// IMPORTANT: event handlers return payload data
 import {
   twitchFollow,
   twitchCheer,
@@ -23,23 +25,52 @@ import {
   youtubeMessageDeleted,
   youtubeUserBanned
 } from "./eventHandlers";
+
 // initiating connection with streamerbot: see https://streamerbot.github.io/client/guide/events
 // in the future, expected to be more custom client connection settings, like custom port, custom endpoints
 const client = new StreamerbotClient();
 
-/*
-let eventAttributes = {
-    eventId: null,
-    senderId: null,
-    timestamp: null,
-    eventInfo: null,
-    senderName: null,
-    payload: null,
+// block of code sets up a new socket instance to communicate with backend
+const PORT = 10890;
+const socket = io(`http://localhost:${PORT}`);
+
+// functions object is a hashmap ADT to make handler string <-> function changes easier
+const FUNCTIONS = {
+    "twitchFollow" : twitchFollow,
+    "twitchCheer" : twitchCheer,
+    "twitchSub" : twitchSub,
+    "twitchResub" : twitchResub,
+    "twitchGiftSub" : twitchGiftSub,
+    "twitchGiftBomb" : twitchGiftBomb,
+    "twitchRaid" : twitchRaid,
+    "twitchChatMessage" : twitchChatMessage,
+    "twitchChatMessageDeleted" : twitchChatMessageDeleted,
+    "twitchUserTimedOut" : twitchUserTimedOut,
+    "twitchUserBanned" : twitchUserBanned,
+    "youtubeNewSubscriber" : youtubeNewSubscriber,
+    "youtubeSuperChat" : youtubeSuperChat,
+    "youtubeSuperSticker" : youtubeSuperSticker,
+    "youtubenewSponsor" : youtubenewSponsor,
+    "youtubeMembershipGift" : youtubeMembershipGift,
+    "youtubeMessage" : youtubeMessage,
+    "youtubeMessageDeleted" : youtubeMessageDeleted,
+    "youtubeUserBanned" : youtubeUserBanned
 }
-*/
+
+// command objects only received after connection has been fully established, otherwise it won't even fire
+socket.on("connect", () => {
+  console.log("(SBCHAT) MAIN connection with backend server established on port: ", PORT);
+  
+  socket.on("command", (obj)=>{
+    const eventType = obj.eventType;
+    const data = obj.eventData;
+    const handler = FUNCTIONS[eventType];
+    display.pushToDisplay(handler(data));
+  });
+});
+
 
 // Twitch engagement events
-
 client.on("Twitch.Follow", (obj) => {
   display.pushToDisplay(twitchFollow(obj));
 });
