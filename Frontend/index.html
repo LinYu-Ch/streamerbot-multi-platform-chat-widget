@@ -53,6 +53,15 @@
         background-color: rgb(238, 77, 77);
       }
     </style>
+
+    <h1>OBS source: </h1>
+    <p id="obs-source"></p>
+    <script defer>
+      const port = window.location.port;
+      const obsSource = document.getElementById("obs-source");
+      obsSource.innerText = `http://localhost:${port}/display.html`
+    </script>
+
     <div id="test-environment">
       <ol id="control-pannel">
         <li><h2>Test pannel</h2></li>
@@ -96,7 +105,7 @@
     </div>
 
     
-    <!-- <script type="module" src="/src/main.js"></script> -->
-    <script type="module" src="/src/testMain.js"></script>
+    <script type="module" src="/src/controler.js"></script>
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
