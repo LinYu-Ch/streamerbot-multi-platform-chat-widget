@@ -32,6 +32,11 @@ function mediaEncode(messageString, emotes) {
     return messageAsArray.join("");
 }
 
+/**
+ * 
+ * @param {streamerbot_event_object} obj 
+ * @returns event handler ready payload
+ */
 export const twitchFollow = (obj) => {
     const data = obj.data;
 
@@ -79,6 +84,11 @@ export const twitchFollow = (obj) => {
     // sending out event object
     return eventObj;
 }
+/**
+ * 
+ * @param {streamerbot_event_object} obj 
+ * @returns event handler ready payload
+ */
 export const twitchCheer = (obj) => {
     const data = obj.data;
 
@@ -105,6 +115,11 @@ export const twitchCheer = (obj) => {
 
     return eventObj;
 }
+/**
+ * 
+ * @param {streamerbot_event_object} obj 
+ * @returns event handler ready payload
+ */
 export const twitchSub = (obj) => {
     const data = obj.data;
 
@@ -132,6 +147,11 @@ export const twitchSub = (obj) => {
     return eventObj;
 
 }
+/**
+ * 
+ * @param {streamerbot_event_object} obj 
+ * @returns event handler ready payload
+ */
 export const twitchResub = (obj) => {
     const data = obj.data;
 
@@ -159,6 +179,11 @@ export const twitchResub = (obj) => {
 
     return eventObj;
 }
+/**
+ * 
+ * @param {streamerbot_event_object} obj 
+ * @returns event handler ready payload
+ */
 export const twitchGiftSub = (obj) => {
     const data = obj.data;
 
@@ -185,6 +210,11 @@ export const twitchGiftSub = (obj) => {
 
     return eventObj;
 }
+/**
+ * 
+ * @param {streamerbot_event_object} obj 
+ * @returns event handler ready payload
+ */
 export const twitchGiftBomb = (obj) => {
     const data = obj.data;
 
@@ -211,6 +241,11 @@ export const twitchGiftBomb = (obj) => {
 
     return eventObj;
 }
+/**
+ * 
+ * @param {streamerbot_event_object} obj 
+ * @returns event handler ready payload
+ */
 export const twitchRaid = (obj) => {
     const data = obj.data;
 
@@ -237,6 +272,11 @@ export const twitchRaid = (obj) => {
 
     return eventObj;
 }
+/**
+ * 
+ * @param {streamerbot_event_object} obj 
+ * @returns event handler ready payload
+ */
 export const twitchChatMessage = (obj) => {
     console.log(obj);
     const data = obj.data;
@@ -266,18 +306,26 @@ export const twitchChatMessage = (obj) => {
 
     return eventObj;
 }
+
 export const twitchChatMessageDeleted = (obj) => {
     let data = obj.data;
     return data.messageId;
 }
+
 export const twitchUserTimedOut = (obj) => {
     let data = obj.data;
     return data.messageId;
 }
+
 export const twitchUserBanned = (obj) => {
     let data = obj.data;
     return data.messageId;
 }
+/**
+ * 
+ * @param {streamerbot_event_object} obj 
+ * @returns event handler ready payload
+ */
 export const youtubeNewSubscriber = (obj) => {
     const data = obj.data;
 
@@ -303,6 +351,11 @@ export const youtubeNewSubscriber = (obj) => {
 
     return eventObj;
 }
+/**
+ * 
+ * @param {streamerbot_event_object} obj 
+ * @returns event handler ready payload
+ */
 export const youtubeSuperChat = (obj) => {
     const data = obj.data;
 
@@ -343,6 +396,11 @@ export const youtubeSuperChat = (obj) => {
 
     return eventObj;
 }
+/**
+ * 
+ * @param {streamerbot_event_object} obj 
+ * @returns event handler ready payload
+ */
 export const youtubeSuperSticker = (obj) => {
     const data = obj.data;
 
@@ -379,6 +437,11 @@ export const youtubeSuperSticker = (obj) => {
 
     return eventObj;
 }
+/**
+ * 
+ * @param {streamerbot_event_object} obj 
+ * @returns event handler ready payload
+ */
 export const youtubenewSponsor = (obj) => {
     const data = obj.data;
 
@@ -406,6 +469,11 @@ export const youtubenewSponsor = (obj) => {
 
     return eventObj;
 }
+/**
+ * 
+ * @param {streamerbot_event_object} obj 
+ * @returns event handler ready payload
+ */
 export const youtubeMembershipGift = (obj) => {
     const data = obj.data;
 
@@ -434,6 +502,11 @@ export const youtubeMembershipGift = (obj) => {
 
     return eventObj;
 }
+/**
+ * 
+ * @param {streamerbot_event_object} obj 
+ * @returns event handler ready payload
+ */
 export const youtubeMessage = (obj) => {
     console.log(obj);
     const data = obj.data;
