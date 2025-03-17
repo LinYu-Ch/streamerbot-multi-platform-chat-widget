@@ -11,6 +11,7 @@ const PORT = 10890;
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
+const { getLocalImages } = require("./localFileHandlers");
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -28,6 +29,7 @@ httpServer.listen(PORT, () => {
 
 socketServer.on("connection", (socket) => {
   console.log("Connection established", socket.id);
+  socketServer.emit("imageData", getLocalImages());
   
   // wow this is horrible nesting - TODD 
   socket.on("control", (obj)=>{
