@@ -56,12 +56,13 @@ const FUNCTIONS = {
     "youtubeMessageDeleted" : youtubeMessageDeleted,
     "youtubeUserBanned" : youtubeUserBanned
 }
-
+const EMOTEDATA = {}
 // command objects only received after connection has been fully established, otherwise it won't even fire
 socket.on("connect", () => {
   console.log("(SBCHAT) MAIN connection with backend server established on port: ", PORT);
-  
-  socket.on("command", (obj)=>{
+  socket.on("imageData", (obj) => Object.assign(EMOTEDATA, obj));
+
+  socket.on("command", (obj) => {
     const eventType = obj.eventType;
     const data = obj.eventData;
     const handler = FUNCTIONS[eventType];
