@@ -24,12 +24,13 @@ const socketServer = new Server(httpServer, {
 
 httpServer.listen(PORT, () => {
   console.log(`Socket.IO server is active on port ${PORT}`);
+  console.log(getLocalImages());
   }
 );
 
 socketServer.on("connection", (socket) => {
   console.log("Connection established", socket.id);
-  socketServer.emit("imageData", getLocalImages());
+  socketServer.emit("staticData", getLocalImages());
   
   // wow this is horrible nesting - TODD 
   socket.on("control", (obj)=>{

@@ -25,6 +25,7 @@ function getLocalImages() {
             const base64String = data.toString('base64');
             const parsed = path.parse(image.name);
             imageObjects[parsed.name] = {
+                name: `:_${parsed.name}:`,
                 body:base64String,
                 type:parsed.ext,
         }
