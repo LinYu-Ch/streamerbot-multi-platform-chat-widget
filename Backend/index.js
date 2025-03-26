@@ -11,7 +11,7 @@ const PORT = 10890;
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
-const { getLocalImages } = require("./localFileHandlers");
+const { getLocalImages, updateEmotes } = require("./localFileHandlers");
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -37,6 +37,10 @@ socketServer.on("connection", (socket) => {
     console.log("control object received", obj.eventType);
     socketServer.emit("command", obj);
   });
+
+  socket.on("emotes", (obj)=>{
+    updateEmotes(obj);
+  })
 });
 
 

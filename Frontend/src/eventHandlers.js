@@ -52,9 +52,7 @@ function youtubeMediaEncoderFactory(youtubeEmotes) {
         // to get the final value
         for (let emote in youtubeEmotes) {
             const emoteName = youtubeEmotes[emote].name;
-            const emoteImgData = youtubeEmotes[emote].body;
-            const emoteImgType = youtubeEmotes[emote].type.replace(".", "");
-            const webImage = `data:image/${emoteImgType};base64,${emoteImgData}`;
+            const webImage = youtubeEmotes[emote].body;
 
             let fullEmote = document.createElement("img");
 
@@ -62,8 +60,7 @@ function youtubeMediaEncoderFactory(youtubeEmotes) {
             fullEmote.src = webImage;
             fullEmote.alt = emoteName;
 
-            messageString = messageString.replaceAll(emoteName, fullEmote.outerHTML);
-            
+            messageString = messageString.replaceAll(emoteName, fullEmote.outerHTML); 
         }
 
         return messageString;
