@@ -37,6 +37,10 @@ socketServer.on("connection", (socket) => {
   socket.on("emotes", (obj)=>{
     updateEmotes(obj);
   })
+
+  socket.on("disconnect", (obj)=>{
+    console.log("socked disconnected", obj);
+  })
 });
 
 
