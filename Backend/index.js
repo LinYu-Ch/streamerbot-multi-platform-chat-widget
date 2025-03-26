@@ -19,28 +19,27 @@ const socketServer = new Server(httpServer, {
   cors:{
     origin: "http://localhost:5173", // Allow your client origin
     methods: ["GET", "POST"],
-  }
+  },
+  connectionStateRecovery: {}
 });
 
 httpServer.listen(PORT, () => console.log(`Socket.IO server is active on port ${PORT}`));
 
 socketServer.on("connection", (socket) => {
   console.log("Connection established", socket.id);
-  socketServer.emit("staticData", getLocalImages());
-  
+  socket.emit("staticData", getLocalImages());  
   // wow this is horrible nesting - TODD 
   socket.on("control", (obj)=>{
     console.log("control object received", obj.eventType);
-    socketServer.emit("command", obj);
+    socketServer.of("").sockets.forEach((socket) => {
+      socket.emit("command", obj);
+    });
   });
 
   socket.on("emotes", (obj)=>{
     updateEmotes(obj);
   })
 
-  socket.on("disconnect", (obj)=>{
-    console.log("socked disconnected", obj);
-  })
 });
 
 
