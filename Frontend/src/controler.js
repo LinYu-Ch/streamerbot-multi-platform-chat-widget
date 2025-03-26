@@ -122,16 +122,22 @@ socket.on("connect", () => {
   const emoteForm = document.getElementById('youtube-emote-inputs');
   const emoteInputBlock = document.getElementById('emote-input-block');
   const addEmote = document.getElementById('add-emote');
-
+  
+  
+  
   // adds a new emote block and attatches event listeners to them
   addEmote.addEventListener("click", () => {
     emoteBlockFactory(emoteInputBlock);
   });
-
+  
+  const currentEmoteList = [];
   socket.on('staticData', (youtubeEmotes)=>{
     for (let emote in youtubeEmotes) {
       const emoteName = youtubeEmotes[emote].name;
       const webImage = youtubeEmotes[emote].body;
+
+      if (currentEmoteList.includes(emoteName)) continue;
+      currentEmoteList.push(emoteName);
 
       emoteBlockFactory(emoteInputBlock, emoteName, webImage);
   }
