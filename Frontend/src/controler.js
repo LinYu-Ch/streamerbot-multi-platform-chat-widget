@@ -77,14 +77,15 @@ socket.on("connect", () => {
 
     // separating form data into an array of values so its easier to throw into the payloads
     let tempNameValue = "";
-    const regex = /:_\w+:/;
+    const regex = /:_([\w]+):/;
     Array.from(formData.values()).forEach((value, index) => {
-      if (value.replace(regex, '') === '') return;
 
       // if index isn't even, if its a name
       if (index % 2 === 0) {
-        tempNameValue = value.replace(regex, '');
+        tempNameValue = value.replace(regex, '$1');
+        if (tempNameValue === "") return;
       } else {
+        if (value.size == 0) return;
         formPayload[tempNameValue] = {
           data: value,
           type: value.type,
@@ -125,21 +126,22 @@ socket.on("connect", () => {
   const emoteInputBlock = document.getElementById('emote-input-block');
   const addEmote = document.getElementById('add-emote');
   
-  
-  
   // adds a new emote block and attatches event listeners to them
   addEmote.addEventListener("click", () => {
     emoteBlockFactory(emoteInputBlock);
   });
   
-  const currentEmoteList = [];
   socket.on('staticData', (youtubeEmotes)=>{
+
+    
     for (let emote in youtubeEmotes) {
       const emoteName = youtubeEmotes[emote].name;
       const webImage = youtubeEmotes[emote].body;
-
-      if (currentEmoteList.includes(emoteName)) continue;
-      currentEmoteList.push(emoteName);
+      
+      const onScreenEmotes = document.querySelectorAll(".label-emote");
+      const onScreenValues = Array.from(onScreenEmotes);
+      const onScreenNames = onScreenValues.map((value)=>value.value);
+      if (onScreenNames.includes(emoteName) || onScreenNames.includes(`:_${emoteName}:`) || onScreenNames.includes(emoteName.replace(/:_([\w]+):/, "$1"))) continue;
 
       emoteBlockFactory(emoteInputBlock, emoteName, webImage);
   }
