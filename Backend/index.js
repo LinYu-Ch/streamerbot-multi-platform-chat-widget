@@ -22,11 +22,7 @@ const socketServer = new Server(httpServer, {
   }
 });
 
-httpServer.listen(PORT, () => {
-  console.log(`Socket.IO server is active on port ${PORT}`);
-  console.log(getLocalImages());
-  }
-);
+httpServer.listen(PORT, () => console.log(`Socket.IO server is active on port ${PORT}`));
 
 socketServer.on("connection", (socket) => {
   console.log("Connection established", socket.id);
