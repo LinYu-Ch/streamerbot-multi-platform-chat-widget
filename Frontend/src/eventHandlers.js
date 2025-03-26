@@ -58,7 +58,6 @@ function youtubeMediaEncoderFactory(youtubeEmotes) {
 
             // new img element created
             fullEmote.src = webImage;
-            fullEmote.alt = emoteName;
 
             messageString = messageString.replaceAll(emoteName, fullEmote.outerHTML); 
         }
