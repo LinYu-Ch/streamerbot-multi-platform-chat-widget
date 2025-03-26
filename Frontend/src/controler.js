@@ -103,6 +103,9 @@ socket.on("connect", () => {
     const emotePreview = newEmoteBlock.querySelector('.emote-preview');
     const deleteBlock = newEmoteBlock.querySelector('.remove-emote');
 
+    emotePreview.src = image ?? "";
+    emoteLabel.value = label ?? "";
+
     // detects change on file input, then sets the emote preview to the image
     // reference: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file
     fileInput.addEventListener('change', () => {
@@ -124,5 +127,14 @@ socket.on("connect", () => {
   addEmote.addEventListener("click", () => {
     emoteBlockFactory(emoteInputBlock);
   });
+
+  socket.on('staticData', (youtubeEmotes)=>{
+    for (let emote in youtubeEmotes) {
+      const emoteName = youtubeEmotes[emote].name;
+      const webImage = youtubeEmotes[emote].body;
+
+      emoteBlockFactory(emoteInputBlock, emoteName, webImage);
+  }
+  })
 });
 
