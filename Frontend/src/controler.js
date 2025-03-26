@@ -73,7 +73,8 @@ socket.on("connect", () => {
   const formPayload = {};
   const regex = /:_([\w]+):/;
 
-  youtubeEmoteFormSubmit.addEventListener('click', () => {
+  youtubeEmoteFormSubmit.addEventListener('click', (event) => {
+    event.preventDefault();
     const formData = new FormData(youtubeEmoteForm);
 
     // separating form data into an array of values so its easier to throw into the payloads
