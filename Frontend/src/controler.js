@@ -77,11 +77,13 @@ socket.on("connect", () => {
 
     // separating form data into an array of values so its easier to throw into the payloads
     let tempNameValue = "";
-    console.log(Array.from(formData.values()));
+    const regex = /:_\w+:/;
     Array.from(formData.values()).forEach((value, index) => {
+      if (value.replace(regex, '') === '') return;
+
       // if index isn't even, if its a name
       if (index % 2 === 0) {
-        tempNameValue = value;
+        tempNameValue = value.replace(regex, '');
       } else {
         formPayload[tempNameValue] = {
           data: value,
