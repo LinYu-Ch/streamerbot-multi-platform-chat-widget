@@ -69,6 +69,7 @@ function updateEmotes(newPayload) {
 
   // Merge the new payload into the existing data (update existing keys or add new ones)
   for (const key in newPayload) {
+    if (key == "" || key == ":_:") continue;
     existingData[key] = newPayload[key];
   }
 
