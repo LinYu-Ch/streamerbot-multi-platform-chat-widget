@@ -70,14 +70,15 @@ socket.on("connect", () => {
 
   const youtubeEmoteForm = document.getElementById('youtube-emote-inputs');
   const youtubeEmoteFormSubmit = document.getElementById('save-emotes');
+  const formPayload = {};
+  const regex = /:_([\w]+):/;
 
   youtubeEmoteFormSubmit.addEventListener('click', () => {
     const formData = new FormData(youtubeEmoteForm);
-    const formPayload = {};
 
     // separating form data into an array of values so its easier to throw into the payloads
     let tempNameValue = "";
-    const regex = /:_([\w]+):/;
+
     Array.from(formData.values()).forEach((value, index) => {
 
       // if index isn't even, if its a name
@@ -86,6 +87,7 @@ socket.on("connect", () => {
         if (tempNameValue === "") return;
       } else {
         if (value.size == 0) return;
+        if (tempNameValue === "") return;
         formPayload[tempNameValue] = {
           data: value,
           type: value.type,
@@ -96,7 +98,7 @@ socket.on("connect", () => {
     sendToServer(formPayload, socket, "emotes");
   })
 
-  
+
   const emoteBlockFactory = (emoteInputBlock, label = null, image = null) => {
     const newEmoteBlock = emoteInputBlock.cloneNode(true);
     emoteForm.prepend(newEmoteBlock);
@@ -118,6 +120,7 @@ socket.on("connect", () => {
     });
 
     deleteBlock.addEventListener('click', () => {
+      formPayload[emoteLabel.value.replace(regex, '$1')] = {delete: true};
       newEmoteBlock.remove();
     });
   }
@@ -125,26 +128,20 @@ socket.on("connect", () => {
   const emoteForm = document.getElementById('youtube-emote-inputs');
   const emoteInputBlock = document.getElementById('emote-input-block');
   const addEmote = document.getElementById('add-emote');
-  
+
   // adds a new emote block and attatches event listeners to them
   addEmote.addEventListener("click", () => {
     emoteBlockFactory(emoteInputBlock);
   });
-  
-  socket.on('staticData', (youtubeEmotes)=>{
 
-    
+  socket.on('staticData', (youtubeEmotes) => {
+    emoteForm.replaceChildren();
+
     for (let emote in youtubeEmotes) {
       const emoteName = youtubeEmotes[emote].name;
       const webImage = youtubeEmotes[emote].body;
-      
-      const onScreenEmotes = document.querySelectorAll(".label-emote");
-      const onScreenValues = Array.from(onScreenEmotes);
-      const onScreenNames = onScreenValues.map((value)=>value.value);
-      if (onScreenNames.includes(emoteName) || onScreenNames.includes(`:_${emoteName}:`) || onScreenNames.includes(emoteName.replace(/:_([\w]+):/, "$1"))) continue;
-
       emoteBlockFactory(emoteInputBlock, emoteName, webImage);
-  }
+    }
   })
 });
 
