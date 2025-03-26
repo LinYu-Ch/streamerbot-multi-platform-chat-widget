@@ -186,58 +186,27 @@
 
     </style>
     <div id="emote-pannel">
-
       <button class="emote-button" id="add-emote">ADD EMOTE</button>
+      <button class="emote-button" id="save-emotes">SAVE</button>
+
       <p>Please make sure the emote name is exactly the same as you set it on youtube, the chatbox will match to whatever key is in here</p>
       <div class="emote-blocks">
-        <form id="youtube-emote-inputs" action="" method="post" enctype="multipart/form-data">
-          <button class="emote-button" id="save-emotes">SAVE</button>
+        <form id="youtube-emote-inputs" action="" enctype="multipart/form-data">
           
         </form>
       </div>
 
       <div class="hidden" style="display: none;">
-        <div id="emote-input-block" class="emote-input-block">
+        <fieldset id="emote-input-block" class="emote-input-block">
           <button type="button" class="remove-emote">Remove</button>
-          <input class="upload-emote" type="file" alt="" accept="image/png, image/jpg">
-          <input class="label-emote" type="text" placeholder=":_Emote-Name:">
-          <!-- <img class="emote-preview" src="../Backend/images/7cry.png" alt="emote-preview"> -->
+          <input name="emoteName" class="label-emote" type="text" placeholder=":_Emote-Name:">
+          <input name="emoteData" class="upload-emote" type="file" alt="" accept="image/png, image/jpg">
           <img class="emote-preview" alt="emote-preview">
-        </div>
+        </fieldset>
       </div>
 
 
     </div>
-    <script>
-      // logic to create and manage the state of add youtube emote blocks
-      const emoteForm = document.getElementById('youtube-emote-inputs');
-      const emoteInputBlock = document.getElementById('emote-input-block');
-      const addEmote = document.getElementById('add-emote');
-
-      // adds a new emote block and attatches event listeners to them
-      addEmote.addEventListener("click", ()=>{
-        const newEmoteBlock = emoteInputBlock.cloneNode(true);
-        emoteForm.prepend(newEmoteBlock);
-
-        const fileInput = newEmoteBlock.querySelector('.upload-emote');
-        const emoteLabel = newEmoteBlock.querySelector('.label-emote');
-        const emotePreview = newEmoteBlock.querySelector('.emote-preview');
-        const deleteBlock = newEmoteBlock.querySelector('.remove-emote');
-
-        // detects change on file input, then sets the emote preview to the image
-        // reference: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file
-        fileInput.addEventListener('change', ()=>{
-          const curFiles = fileInput.files;
-          if (curFiles.length === 0) { console.error('File input unsuccessful'); return }
-          emotePreview.src = URL.createObjectURL(curFiles[0]);
-        });
-
-        deleteBlock.addEventListener('click', ()=>{
-          newEmoteBlock.remove();
-        });
-        
-      });
-    </script>
 
     <div id="output-pannel">
       <h2>Output pannel</h2>
