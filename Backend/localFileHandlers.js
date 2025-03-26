@@ -57,9 +57,12 @@ function updateEmotes(newPayload) {
     // Optionally, you can create a data URL string (if needed in your app)
     const dataURL = `data:${type};base64,${base64Image}`;
 
+    // add regex check to match key signature to youtube data
+    const regex = /:_\w+:/;
+
     // Update the payload with the base64 string
     newPayload[key] = {
-      name: `:_${key}:`,
+      name: regex.test(key) ? key : `:_${key}:`,
       body: dataURL,
     };
   }
