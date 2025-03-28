@@ -1,4 +1,3 @@
-const { log } = require('node:console');
 const fs = require('node:fs');
 const path = require('path');
 

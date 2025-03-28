@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "@streamerbot/client": "^1.9.5",
+    "express": "^4.21.2",
+    "path": "^0.12.7",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1"
+  },
+  "name": "streamerbotmultichat",
+  "version": "1.0.0",
+  "description": "Backend service for multi platform chat widget",
+  "main": "index.js",
+  "devDependencies": {
+    "electron": "^35.1.2",
+    "nodemon": "^3.1.9"
+  },
+  "scripts": {
+    "dev": "nodemon index.js",
+    "electron-start": "electron ."
+  },
+  "author": "AnAverageCaret",
+  "license": "ISC",
+  "keywords": []
+}

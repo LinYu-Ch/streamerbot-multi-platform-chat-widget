@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- <link rel="stylesheet" href="main.css"> -->
+  <link rel="stylesheet" href="main.css">
   <title>Chatbox Test Environment</title>
+  <script type="module" crossorigin src="assets/index-DWY7BeFY.js"></script>
 </head>
 
 <body>
@@ -64,9 +65,9 @@
   <h1>OBS source: </h1>
   <p id="obs-source"></p>
   <script defer>
-    const port = window.location.port;
+    const port = 10890;
     const obsSource = document.getElementById("obs-source");
-    obsSource.innerText = `http://localhost:${port}/display.html`
+    obsSource.innerText = `http://localhost:${port}`
   </script>
 
   <div id="test-environment">
@@ -191,7 +192,9 @@
 
       <p>Please make sure the emote name is exactly the same as you set it on youtube, the chatbox will match to whatever key is in here</p>
       <div class="emote-blocks">
-        <form id="youtube-emote-inputs" action="" enctype="multipart/form-data"></form>
+        <form id="youtube-emote-inputs" action="" enctype="multipart/form-data">
+          
+        </form>
       </div>
 
       <div class="hidden" style="display: none;">
@@ -215,8 +218,8 @@
   </div>
 
 
-  <script type="module" src="/src/controler.js"></script>
-  <script type="module" src="/src/main.js"></script>
+
+
 </body>
 
 </html>
