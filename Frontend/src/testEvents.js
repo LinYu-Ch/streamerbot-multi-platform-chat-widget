@@ -819,40 +819,46 @@ export function generateYoutubeMessage() {
 }
 
 export function generateEmoteOnlyYoutubeMessage() {
+    // const payload = {
+    //     "message": ":face-red-heart-shape::face-red-heart-shape:",
+    //     "emotes": [
+    //         {
+    //             "type": "youtube",
+    //             "name": ":face-red-heart-shape:",
+    //             "startIndex": 0,
+    //             "endIndex": 21,
+    //             "imageUrl": "https://yt3.ggpht.com/I0Mem9dU_IZ4a9cQPzR0pUJ8bH-882Eg0sDQjBmPcHA6Oq0uXOZcsjPvPbtormx91Ha2eRA=w24-h24-c-k-nd"
+    //         },
+    //         {
+    //             "type": "youtube",
+    //             "name": ":face-red-heart-shape:",
+    //             "startIndex": 22,
+    //             "endIndex": 43,
+    //             "imageUrl": "https://yt3.ggpht.com/I0Mem9dU_IZ4a9cQPzR0pUJ8bH-882Eg0sDQjBmPcHA6Oq0uXOZcsjPvPbtormx91Ha2eRA=w24-h24-c-k-nd"
+    //         }
+    //     ],
+    //     "parts": [
+    //         {
+    //             "emoji": ":face-red-heart-shape:",
+    //             "image": "https://yt3.ggpht.com/I0Mem9dU_IZ4a9cQPzR0pUJ8bH-882Eg0sDQjBmPcHA6Oq0uXOZcsjPvPbtormx91Ha2eRA=w24-h24-c-k-nd",
+    //             "startIndex": 0,
+    //             "endIndex": 21,
+    //             "text": ":face-red-heart-shape:"
+    //         },
+    //         {
+    //             "emoji": ":face-red-heart-shape:",
+    //             "image": "https://yt3.ggpht.com/I0Mem9dU_IZ4a9cQPzR0pUJ8bH-882Eg0sDQjBmPcHA6Oq0uXOZcsjPvPbtormx91Ha2eRA=w24-h24-c-k-nd",
+    //             "startIndex": 22,
+    //             "endIndex": 43,
+    //             "text": ":face-red-heart-shape:"
+    //         }
+    //     ],
+    // };
+
     const payload = {
-        "message": ":face-red-heart-shape::face-red-heart-shape:",
-        "emotes": [
-            {
-                "type": "youtube",
-                "name": ":face-red-heart-shape:",
-                "startIndex": 0,
-                "endIndex": 21,
-                "imageUrl": "https://yt3.ggpht.com/I0Mem9dU_IZ4a9cQPzR0pUJ8bH-882Eg0sDQjBmPcHA6Oq0uXOZcsjPvPbtormx91Ha2eRA=w24-h24-c-k-nd"
-            },
-            {
-                "type": "youtube",
-                "name": ":face-red-heart-shape:",
-                "startIndex": 22,
-                "endIndex": 43,
-                "imageUrl": "https://yt3.ggpht.com/I0Mem9dU_IZ4a9cQPzR0pUJ8bH-882Eg0sDQjBmPcHA6Oq0uXOZcsjPvPbtormx91Ha2eRA=w24-h24-c-k-nd"
-            }
-        ],
-        "parts": [
-            {
-                "emoji": ":face-red-heart-shape:",
-                "image": "https://yt3.ggpht.com/I0Mem9dU_IZ4a9cQPzR0pUJ8bH-882Eg0sDQjBmPcHA6Oq0uXOZcsjPvPbtormx91Ha2eRA=w24-h24-c-k-nd",
-                "startIndex": 0,
-                "endIndex": 21,
-                "text": ":face-red-heart-shape:"
-            },
-            {
-                "emoji": ":face-red-heart-shape:",
-                "image": "https://yt3.ggpht.com/I0Mem9dU_IZ4a9cQPzR0pUJ8bH-882Eg0sDQjBmPcHA6Oq0uXOZcsjPvPbtormx91Ha2eRA=w24-h24-c-k-nd",
-                "startIndex": 22,
-                "endIndex": 43,
-                "text": ":face-red-heart-shape:"
-            }
-        ],
+        "message": ":_7cry: :_7cry: :_7cry: :_7cry:",
+        "emotes": [],
+        "parts": [],
     };
     const timestamp = getTimestamp();
     return {

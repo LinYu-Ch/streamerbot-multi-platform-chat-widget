@@ -37,6 +37,10 @@
 	box-sizing: border-box;
 }
 
+img {
+	height: 3rem;
+}
+
 /* This is just for platform identification, it is not included in SE by default */
 .chat__platform-identifier {
 	font-size: var(--fs-chat--username);
